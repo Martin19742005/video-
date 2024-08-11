@@ -1,0 +1,278 @@
+<html><head><base href="https://websim.example.com/vidshare/"><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>VidShare - Comparte y descubre videos increíbles</title><style>
+    /* ... (estilos previos) ... */
+
+    #country-selector {
+        margin-bottom: 20px;
+    }
+
+    #country-selector select {
+        padding: 8px;
+        font-size: 16px;
+        border: 1px solid var(--border-color);
+        border-radius: 4px;
+        background-color: #fff;
+        color: var(--text-color);
+    }
+
+    .night-mode #country-selector select {
+        background-color: #3d3d3d;
+        color: #fff;
+    }
+
+    #creators-by-country {
+        margin-top: 30px;
+    }
+
+    .creator-card {
+        display: flex;
+        align-items: center;
+        background-color: #fff;
+        border: 1px solid var(--border-color);
+        border-radius: 8px;
+        padding: 10px;
+        margin-bottom: 10px;
+        transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .creator-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+
+    .night-mode .creator-card {
+        background-color: #2d2d2d;
+    }
+
+    .creator-avatar {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        margin-right: 15px;
+    }
+
+    .creator-info {
+        flex-grow: 1;
+    }
+
+    .creator-name {
+        font-weight: bold;
+        margin-bottom: 5px;
+    }
+
+    .creator-stats {
+        font-size: 14px;
+        color: #606060;
+    }
+
+    .night-mode .creator-stats {
+        color: #aaa;
+    }
+
+    .subscribe-button {
+        background-color: var(--secondary-color);
+        color: #fff;
+        border: none;
+        padding: 8px 16px;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 14px;
+        transition: background-color 0.3s;
+    }
+
+    .subscribe-button:hover {
+        background-color: #c62828;
+    }
+</style></head><body>
+    <!-- ... (contenido previo del body) ... -->
+
+    <main>
+        <div id="country-selector">
+            <select id="country-select">
+                <option value="">Selecciona un país</option>
+                <option value="US">Estados Unidos</option>
+                <option value="ES">España</option>
+                <option value="MX">México</option>
+                <option value="AR">Argentina</option>
+                <option value="CO">Colombia</option>
+                <option value="PE">Perú</option>
+                <option value="CL">Chile</option>
+                <!-- Agrega más países según sea necesario -->
+            </select>
+        </div>
+
+        <div id="categories">
+            <!-- ... (categorías previas) ... -->
+        </div>
+
+        <div class="video-grid">
+            <!-- Los videos se generarán dinámicamente con JavaScript -->
+        </div>
+
+        <div id="creators-by-country">
+            <h3>Creadores populares</h3>
+            <div id="creators-container">
+                <!-- Los creadores se generarán dinámicamente con JavaScript -->
+            </div>
+        </div>
+
+        <!-- ... (contenido previo) ... -->
+    </main>
+
+    <!-- ... (modales y otros elementos previos) ... -->
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // ... (código previo) ...
+
+    const countrySelect = document.getElementById('country-select');
+    const creatorsContainer = document.getElementById('creators-container');
+
+    // Función para generar videos basados en el país seleccionado
+    function generateVideosByCountry(country) {
+        const videoTitles = [
+            `Lo mejor de ${country}: Lugares turísticos`,
+            `Comida típica de ${country}`,
+            `Aprendiendo el acento de ${country}`,
+            `Noticias de última hora en ${country}`,
+            `Música popular de ${country}`,
+            `Deportes favoritos en ${country}`,
+            `Un día en la vida en ${country}`,
+            `Tradiciones únicas de ${country}`
+        ];
+
+        videoGrid.innerHTML = '';
+
+        for (let i = 0; i < 12; i++) {
+            const videoCard = document.createElement('div');
+            videoCard.classList.add('video-card');
+
+            const videoThumbnail = document.createElement('div');
+            videoThumbnail.classList.add('video-thumbnail');
+            const img = document.createElement('img');
+            img.src = `https://picsum.photos/300/200?random=${i}`;
+            img.alt = `Video thumbnail from ${country}`;
+            videoThumbnail.appendChild(img);
+
+            if (Math.random() > 0.7) {
+                const premiumTag = document.createElement('span');
+                premiumTag.classList.add('premium-tag');
+                premiumTag.textContent = 'PREMIUM';
+                videoThumbnail.appendChild(premiumTag);
+            }
+
+            const videoInfo = document.createElement('div');
+            videoInfo.classList.add('video-info');
+
+            const videoTitle = document.createElement('div');
+            videoTitle.classList.add('video-title');
+            videoTitle.textContent = videoTitles[i % videoTitles.length];
+
+            const videoChannel = document.createElement('div');
+            videoChannel.classList.add('video-channel');
+            videoChannel.textContent = `Canal ${country} ${i + 1}`;
+
+            const videoStats = document.createElement('div');
+            videoStats.classList.add('video-stats');
+            videoStats.textContent = `${Math.floor(Math.random() * 1000)}K vistas • hace ${Math.floor(Math.random() * 7) + 1} días`;
+
+            const videoActions = document.createElement('div');
+            videoActions.classList.add('video-actions');
+
+            const likeDislike = document.createElement('div');
+            likeDislike.classList.add('like-dislike');
+
+            const likeButton = document.createElement('button');
+            likeButton.classList.add('like-button');
+            likeButton.innerHTML = '👍';
+            const dislikeButton = document.createElement('button');
+            dislikeButton.classList.add('dislike-button');
+            dislikeButton.innerHTML = '👎';
+
+            likeDislike.appendChild(likeButton);
+            likeDislike.appendChild(dislikeButton);
+
+            const shareButton = document.createElement('button');
+            shareButton.classList.add('share-button');
+            shareButton.innerHTML = '🔗';
+
+            videoActions.appendChild(likeDislike);
+            videoActions.appendChild(shareButton);
+
+            videoInfo.appendChild(videoTitle);
+            videoInfo.appendChild(videoChannel);
+            videoInfo.appendChild(videoStats);
+            videoInfo.appendChild(videoActions);
+
+            videoCard.appendChild(videoThumbnail);
+            videoCard.appendChild(videoInfo);
+
+            videoGrid.appendChild(videoCard);
+        }
+    }
+
+    // Función para generar creadores basados en el país seleccionado
+    function generateCreatorsByCountry(country) {
+        const creatorNames = [
+            `${country}Vlogger`,
+            `Cocina${country}`,
+            `Viajes${country}`,
+            `Música${country}`,
+            `Noticias${country}`,
+            `Deportes${country}`,
+            `Comedia${country}`,
+            `Educación${country}`
+        ];
+
+        creatorsContainer.innerHTML = '';
+
+        for (let i = 0; i < 5; i++) {
+            const creatorCard = document.createElement('div');
+            creatorCard.classList.add('creator-card');
+
+            const creatorAvatar = document.createElement('img');
+            creatorAvatar.classList.add('creator-avatar');
+            creatorAvatar.src = `https://picsum.photos/50/50?random=${i}`;
+            creatorAvatar.alt = `Avatar of ${creatorNames[i]}`;
+
+            const creatorInfo = document.createElement('div');
+            creatorInfo.classList.add('creator-info');
+
+            const creatorName = document.createElement('div');
+            creatorName.classList.add('creator-name');
+            creatorName.textContent = creatorNames[i];
+
+            const creatorStats = document.createElement('div');
+            creatorStats.classList.add('creator-stats');
+            creatorStats.textContent = `${Math.floor(Math.random() * 1000)}K suscriptores • ${Math.floor(Math.random() * 500)} videos`;
+
+            const subscribeButton = document.createElement('button');
+            subscribeButton.classList.add('subscribe-button');
+            subscribeButton.textContent = 'Suscribirse';
+
+            creatorInfo.appendChild(creatorName);
+            creatorInfo.appendChild(creatorStats);
+
+            creatorCard.appendChild(creatorAvatar);
+            creatorCard.appendChild(creatorInfo);
+            creatorCard.appendChild(subscribeButton);
+
+            creatorsContainer.appendChild(creatorCard);
+        }
+    }
+
+    // Evento para cambiar el país
+    countrySelect.addEventListener('change', (e) => {
+        const selectedCountry = e.target.value;
+        if (selectedCountry) {
+            generateVideosByCountry(selectedCountry);
+            generateCreatorsByCountry(selectedCountry);
+        } else {
+            generateVideos(); // Función original para generar videos
+            creatorsContainer.innerHTML = ''; // Limpiar la lista de creadores
+        }
+    });
+
+    // ... (código previo) ...
+});
+</script>
+</body></html>
